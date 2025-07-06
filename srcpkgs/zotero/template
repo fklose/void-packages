@@ -1,0 +1,54 @@
+# Template file for 'zotero'
+pkgname=zotero
+version=7.0.19
+revision=1
+archs="x86_64"
+hostmakedepends="git git-lfs nodejs rsync curl wget zip unzip xz awk python3 perl tar"
+depends="nss gtk+3 libXt dbus-glib"
+short_desc="Collect, organize, annotate, cite, and share your research sources"
+maintainer="fklose <felix.f.klose@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/zotero/zotero"
+
+do_fetch() {
+	git clone --recursive https://github.com/zotero/zotero.git $wrksrc
+}
+
+pre_build() {
+	# Install dependencies from npm
+	npm install --legacy-peer-deps
+
+	# Set up git-lfs
+	git lfs install; git lfs pull
+}
+
+do_build() {
+	NODE_OPTIONS=--openssl-legacy-provider npm run build
+	app/scripts/dir_build -q
+}
+
+do_install() {
+	vmkdir /usr/bin 755
+	vmkdir /usr/lib/zotero 755
+	vmkdir /usr/share/icons/hicolor/32x32/apps
+	vmkdir /usr/share/icons/hicolor/64x64/apps
+	vmkdir /usr/share/icons/hicolor/128x128/apps
+	vmkdir /usr/share/icons/hicolor/symbolic/apps
+	vmkdir /usr/share/applications
+
+	# Binaries
+	vcopy app/staging/Zotero_linux-${archs}/* /usr/lib/zotero/.
+	# Create symlink and move to $PKGDESTDIR
+	ln -s /usr/lib/zotero/zotero ${PKGDESTDIR}/usr/bin
+
+	# Desktop icons
+	vcopy app/staging/Zotero_linux-${archs}/icons/icon32.png /usr/share/icons/hicolor/32x32/apps/zotero.png
+	vcopy app/staging/Zotero_linux-${archs}/icons/icon64.png /usr/share/icons/hicolor/64x64/apps/zotero.png
+	vcopy app/staging/Zotero_linux-${archs}/icons/icon128.png /usr/share/icons/hicolor/128x128/apps/zotero.png
+	vcopy app/staging/Zotero_linux-${archs}/icons/symbolic.svg /usr/share/icons/hicolor/symbolic/apps/zotero-symbolic.svg
+
+	# .desktop file
+	# TODO: Should use a custom file since I know that zotero will be in /usr/bin
+	# TODO: Custom .desktop file should also hardcode path to the icon
+	vcopy app/staging/Zotero_linux-${archs}/zotero.desktop /usr/share/applications
+}
