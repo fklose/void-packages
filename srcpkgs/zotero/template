@@ -7,7 +7,7 @@ hostmakedepends="git git-lfs nodejs rsync curl wget zip unzip xz awk python3 per
 depends="nss gtk+3 libXt dbus-glib"
 short_desc="Collect, organize, annotate, cite, and share your research sources"
 maintainer="fklose <felix.f.klose@gmail.com>"
-license="GPL-3.0-or-later"
+license="AGPL-3.0-only"
 homepage="https://github.com/zotero/zotero"
 
 do_fetch() {
@@ -50,4 +50,6 @@ do_install() {
 	# Use a modified zotero.desktop file since we know the path and that the icon is registered
 	# properly
 	vcopy ${FILESDIR}/zotero.desktop /usr/share/applications
+
+	vlicense COPYING
 }
