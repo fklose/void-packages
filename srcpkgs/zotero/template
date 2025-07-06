@@ -12,6 +12,8 @@ homepage="https://github.com/zotero/zotero"
 
 do_fetch() {
 	git clone --recursive https://github.com/zotero/zotero.git $wrksrc
+	cd ${wrksrc}
+	git checkout --recurse-submodules ${version}
 }
 
 pre_build() {
