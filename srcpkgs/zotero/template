@@ -12,8 +12,6 @@ homepage="https://github.com/zotero/zotero"
 
 do_fetch() {
 	git clone --recursive https://github.com/zotero/zotero.git $wrksrc
-	cd ${wrksrc}
-	git checkout --recurse-submodules ${version}
 }
 
 pre_build() {
@@ -40,7 +38,7 @@ do_install() {
 
 	# Binaries
 	vcopy app/staging/Zotero_linux-${archs}/* /usr/lib/zotero/.
-	# Create symlink for the binary in /usr/bin
+	# Create symlink and move to $PKGDESTDIR
 	ln -s /usr/lib/zotero/zotero ${PKGDESTDIR}/usr/bin
 
 	# Desktop icons
