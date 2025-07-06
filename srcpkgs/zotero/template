@@ -38,7 +38,7 @@ do_install() {
 
 	# Binaries
 	vcopy app/staging/Zotero_linux-${archs}/* /usr/lib/zotero/.
-	# Create symlink and move to $PKGDESTDIR
+	# Create symlink for the binary in /usr/bin
 	ln -s /usr/lib/zotero/zotero ${PKGDESTDIR}/usr/bin
 
 	# Desktop icons
@@ -47,8 +47,7 @@ do_install() {
 	vcopy app/staging/Zotero_linux-${archs}/icons/icon128.png /usr/share/icons/hicolor/128x128/apps/zotero.png
 	vcopy app/staging/Zotero_linux-${archs}/icons/symbolic.svg /usr/share/icons/hicolor/symbolic/apps/zotero-symbolic.svg
 
-	# .desktop file
-	# TODO: Should use a custom file since I know that zotero will be in /usr/bin
-	# TODO: Custom .desktop file should also hardcode path to the icon
-	vcopy app/staging/Zotero_linux-${archs}/zotero.desktop /usr/share/applications
+	# Use a modified zotero.desktop file since we know the path and that the icon is registered
+	# properly
+	vcopy ${FILESDIR}/zotero.desktop /usr/share/applications
 }
