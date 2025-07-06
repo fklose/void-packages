@@ -38,7 +38,7 @@ do_install() {
 
 	# Binaries
 	vcopy app/staging/Zotero_linux-${archs}/* /usr/lib/zotero/.
-	# Create symlink and move to $PKGDESTDIR
+	# Create symlink for the binary in /usr/bin
 	ln -s /usr/lib/zotero/zotero ${PKGDESTDIR}/usr/bin
 
 	# Desktop icons
