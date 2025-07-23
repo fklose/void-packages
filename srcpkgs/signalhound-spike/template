@@ -1,0 +1,42 @@
+# Template file for 'signalhound-spike'
+pkgname=signalhound-spike
+version=4.0.5
+revision=1
+archs="x86_64"
+build_style=fetch
+hostmakedepends="unzip"
+#makedepends=""
+depends="libusb"
+short_desc="Spectrum analyzer software for Signal Hound test equipment"
+maintainer="fklose <felix.f.klose@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://signalhound.com/spike/"
+changelog="https://signalhound.com/sigdownloads/Spike/change_log.txt"
+# distfiles="https://signalhound.com/sigdownloads/Spike/Spike(Ubuntu22.04x64)_4_0_5.zip"
+# checksum=da0e88dc10eafc5a8979682dfa6bafe3e680c5e067010b85757d3c86e56bacdf
+# QUESTION: Maybe I use the RHEL install since it does not depend on the matlab runtime
+distfiles="https://signalhound.com/sigdownloads/Spike/Spike(RHEL8x64)_4_0_5.zip"
+checksum=ed690dc6dda0d145b2091cdbea2fe638b918550934af6514f4fce58219a4642d
+nopie=yes
+
+# TODO: Looks like I need to package the matlab runtime otherwise xbps will complain
+# TODO: I should probably install the package in /opt?
+do_install() {
+	echo "--->>> In do_install() ..."
+	echo $(pwd)
+	echo $(ls)
+	# unzip ${wrksrc}/"Spike(Ubuntu22.04x64)_4_0_5.zip"
+	unzip ${wrksrc}/"Spike(RHEL8x64)_4_0_5.zip"
+
+	# spike_path=${wrksrc}/"Spike(Ubuntu22.04x64)_4_0_5"
+	spike_path=${wrksrc}/"Spike(RHEL8x64)_4_0_5"
+
+	vmkdir /opt/signalhound-spike
+	vmkdir /usr/lib/udev/rules.d
+	vmkdir /usr/lib/
+
+	chmod 755 ${spike_path}/bin/Spike
+	vcopy ${spike_path}/sh.rules /usr/lib/udev/rules.d
+	vcopy ${spike_path}/* /opt/signalhound-spike
+	vcopy ${FILESDIR}/libGL* /opt/signalhound-spike/lib
+}
