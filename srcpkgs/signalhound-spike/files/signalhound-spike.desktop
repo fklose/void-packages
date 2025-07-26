@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Spike
+Comment=Spectrum Analyzer Software
+Keywords=signal;hound;spike;spectrum;analyzer;sm200;sm435;bb60
+Exec=/usr/bin/Spike
+Icon=signalhound-spike
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;
+StartupNotify=true
+X-Ubuntu-Gettext-Domain=signalhound-spike
+

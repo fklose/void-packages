@@ -6,7 +6,7 @@ archs="x86_64"
 build_style=fetch
 hostmakedepends="unzip"
 #makedepends=""
-depends="libusb"
+depends="libusb libglvnd-devel"
 short_desc="Spectrum analyzer software for Signal Hound test equipment"
 maintainer="fklose <felix.f.klose@gmail.com>"
 license="GPL-3.0-or-later"
@@ -31,12 +31,35 @@ do_install() {
 	# spike_path=${wrksrc}/"Spike(Ubuntu22.04x64)_4_0_5"
 	spike_path=${wrksrc}/"Spike(RHEL8x64)_4_0_5"
 
-	vmkdir /opt/signalhound-spike
-	vmkdir /usr/lib/udev/rules.d
-	vmkdir /usr/lib/
+	# Install application binaries
+	vmkdir /usr/lib/signalhound-spike 755
+	vcopy ${spike_path}/* /usr/lib/signalhound-spike
+	chmod +x ${PKGDESTDIR}/usr/lib/signalhound-spike/Spike
+	chmod +x ${PKGDESTDIR}/usr/lib/signalhound-spike/bin/Spike
 
-	chmod 755 ${spike_path}/bin/Spike
-	vcopy ${spike_path}/sh.rules /usr/lib/udev/rules.d
-	vcopy ${spike_path}/* /opt/signalhound-spike
-	vcopy ${FILESDIR}/libGL* /opt/signalhound-spike/lib
+	# Place symlink in /usr/bin
+	vmkdir /usr/bin
+	ln -s /usr/lib/signalhound-spike/bin/Spike ${PKGDESTDIR}/usr/bin
+
+	# Clean up the folder we just put in /usr/lib
+	rm -r ${PKGDESTDIR}/usr/lib/signalhound-spike/assets # This contains desktop icons
+	rm ${PKGDESTDIR}/usr/lib/signalhound-spike/sh.rules # These are the udev rules
+	rm ${PKGDESTDIR}/usr/lib/signalhound-spike/com.signalhound.spike.desktop # This is the .desktop file
+	rm ${PKGDESTDIR}/usr/lib/signalhound-spike/setup.sh # This is the setup script
+	rm ${PKGDESTDIR}/usr/lib/signalhound-spike/Spike # From what I can gather this just runs the program in ./bin
+
+	# Install udev rules
+	vmkdir /usr/lib/udev/rules.d
+	vcopy ${spike_path}/sh.rules /usr/lib/udev/rules.d/99-signalhound-spike.rules
+
+	# Install the desktop icon
+	vmkdir /usr/share/icons/hicolor/256x256/apps
+	vcopy ${spike_path}/assets/com.signalhound.spike.png /usr/share/icons/hicolor/256x256/apps/signalhound-spike.png
+
+	# Install the .desktop file
+	vmkdir /usr/share/applications
+	vcopy ${FILESDIR}/signalhound-spike.desktop /usr/share/applications
+
+	# Install libGLDispatch which I somehow cannot get
+	# vcopy ${FILESDIR}/lib* /usr/lib/signalhound-spike/lib
 }
