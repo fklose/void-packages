@@ -6,7 +6,9 @@ archs="x86_64"
 build_style=fetch
 hostmakedepends="unzip"
 #makedepends=""
-depends="libusb libglvnd-devel"
+depends="libusb icu-libs qt5-dbus qt5-printsupport libcrypto1.1 qt5-gui
+ qt5-serialport mesa qt5-core qt5-multimedia qt5-network qt5-opengl
+ qt5-widgets libssl1.1 libxcb libssl1.1"
 short_desc="Spectrum analyzer software for Signal Hound test equipment"
 maintainer="fklose <felix.f.klose@gmail.com>"
 license="GPL-3.0-or-later"
