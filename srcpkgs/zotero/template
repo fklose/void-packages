@@ -1,6 +1,6 @@
 # Template file for 'zotero'
 pkgname=zotero
-version=7.0.19
+version=7.0.22
 revision=1
 archs="x86_64"
 hostmakedepends="git git-lfs nodejs rsync curl wget zip unzip xz awk python3 perl tar"
