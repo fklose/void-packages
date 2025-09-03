@@ -1,6 +1,6 @@
 # Template file for 'thunderbird-i18n'
 pkgname=thunderbird-i18n
-version=128.5.2
+version=140.2.1
 revision=1
 metapackage=yes
 short_desc="Thunderbird language packs"
