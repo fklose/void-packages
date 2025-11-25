@@ -1,6 +1,6 @@
 # Template file for 'typos'
 pkgname=typos
-version=1.34.0
+version=1.38.1
 revision=1
 build_style=cargo
 make_install_args="--path crates/typos-cli"
@@ -10,7 +10,7 @@ license="Apache-2.0 OR MIT"
 homepage="https://github.com/crate-ci/typos"
 changelog="https://raw.githubusercontent.com/crate-ci/typos/refs/heads/master/CHANGELOG.md"
 distfiles="https://github.com/crate-ci/typos/archive/refs/tags/v${version}.tar.gz"
-checksum=41695125234174fdae345ccb6b4721dc371eaded1e10c68c43b41eeaba3fa6c1
+checksum=f7e83dfecba57d778c916bd3d554129fd6d79e0fa781f605e83c7dd89e30711d
 
 post_install() {
 	vlicense LICENSE-MIT

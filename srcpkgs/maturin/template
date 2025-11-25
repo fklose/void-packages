@@ -1,6 +1,6 @@
 # Template file for 'maturin'
 pkgname=maturin
-version=1.9.1
+version=1.9.6
 revision=1
 build_style=python3-pep517
 build_helper="qemu rust"
@@ -12,7 +12,7 @@ maintainer="Andrew J. Hesford <ajh@sideband.org>"
 license="Apache-2.0, MIT"
 homepage="https://github.com/PyO3/maturin"
 distfiles="${homepage}/archive/v${version}.tar.gz"
-checksum=ad374fbf04340083add2a47f3b3acdd809ceea1275d80cb5918cde80940a2fca
+checksum=c8aef8af6cd3d5b3331191b21191ec92d7b4ee0633e0799351a01af1c5ea2a6c
 # Tests use unstable features and fail to build
 make_check=no
 
