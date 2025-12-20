@@ -1,0 +1,26 @@
+# Template file for 'ugeeTablet'
+pkgname=ugeeTablet
+version=4.3.4
+revision=1
+archs="x86_64"
+short_desc="Configure compatible ugee drawing tablets"
+maintainer=" <felix.f.klose@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://www.ugee.com/download/m708"
+distfiles="https://ugeecom-download.oss-us-west-1.aliyuncs.com/file/2024/12/${pkgname}-${version}-241031.tar.gz"
+checksum=83c51feb0d0a1e68e7f443665a68c8dab1fb41c72ec993c045ee465f839dd2ff
+nopie=true
+
+do_install() {
+	echo ${wrksrc}
+
+	# Install udev rules
+	vinstall ${wrksrc}/App/lib/udev/rules.d/ugee4-1.rules 644 usr/lib/udev/rules.d
+
+	# Install files for shortcuts
+	vinstall ${wrksrc}/App/usr/share/icons/hicolor/256x256/apps/ugeetablet.png 644 usr/share/icons/hicolor/256x256/apps/ugeetablet.png
+	vinstall ${wrksrc}/App/usr/share/applications/ugeetablet.desktop 644 usr/share/applications/ugeetablet.desktop
+
+	# Install application files
+	vcopy ${wrksrc}/App/usr/lib/ugeeTablet usr/lib
+}
