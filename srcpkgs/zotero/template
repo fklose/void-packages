@@ -1,0 +1,45 @@
+# Template file for 'zotero'
+pkgname=zotero
+version=7.0.30
+revision=1
+archs="x86_64"
+short_desc="collect, organize, annotate, cite and share research"
+maintainer=" <felix.f.klose@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://www.zotero.org/"
+distfiles="https://download.zotero.org/client/release/${version}/Zotero-${version}_linux-x86_64.tar.bz2"
+checksum=b95d11d0bf04a19b79f6130a5c5949f8484e340acfa516dbfed215fb064a2e06
+
+# TODO: Fix license
+# TODO: Fix icon not showing up in launcher
+# TODO: Fix warning for libreoffice extension
+
+do_install() {
+	vmkdir usr/bin/zotero-app
+
+	# Copy the relevant files to /usr/bin/zotero
+	vcopy ${wrksrc}/* usr/bin/zotero-app
+
+	# libreoffice integration is not included here
+	rm -r ${DESTDIR}/usr/bin/zotero-app/integration
+
+	# We use our own desktop file so lets remove this too
+	rm ${DESTDIR}/usr/bin/zotero-app/zotero.desktop
+
+	# We also don't want the updater so we remove that too
+	rm ${DESTDIR}/usr/bin/zotero-app/updater{,.ini}
+
+	# Remove the script for updating launcher icons
+	rm ${DESTDIR}/usr/bin/zotero-app/set_launcher_icon
+
+	# The zotero icons go into /usr/share/icons
+	vinstall ${wrksrc}/icons/icon32.png 644 usr/share/icons/hicolor/32x32/apps/zotero.png
+	vinstall ${wrksrc}/icons/icon64.png 644 usr/share/icons/hicolor/64x64/apps/zotero.png
+	vinstall ${wrksrc}/icons/icon128.png 644 usr/share/icons/hicolor/128x128/apps/zotero.png
+
+	# Use our own .desktop file
+	vinstall ${FILESDIR}/zotero.desktop 644 usr/share/applications
+
+	# Finally add a link to the start script to /usr/bin
+	ln -s /usr/bin/zotero-app/zotero ${DESTDIR}/usr/bin/zotero
+}
