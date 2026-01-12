@@ -33,9 +33,12 @@ do_install() {
 	rm ${DESTDIR}/usr/bin/zotero-app/set_launcher_icon
 
 	# The zotero icons go into /usr/share/icons
-	vinstall ${wrksrc}/icons/icon32.png 644 usr/share/icons/hicolor/32x32/apps/zotero.png
-	vinstall ${wrksrc}/icons/icon64.png 644 usr/share/icons/hicolor/64x64/apps/zotero.png
-	vinstall ${wrksrc}/icons/icon128.png 644 usr/share/icons/hicolor/128x128/apps/zotero.png
+	vmkdir usr/share/icons/hicolor/32x32/apps
+	vmkdir usr/share/icons/hicolor/64x64/apps
+	vmkdir usr/share/icons/hicolor/128x128/apps
+	vcopy ${wrksrc}/icons/icon32.png usr/share/icons/hicolor/32x32/apps/zotero.png
+	vcopy ${wrksrc}/icons/icon64.png usr/share/icons/hicolor/64x64/apps/zotero.png
+	vcopy ${wrksrc}/icons/icon128.png usr/share/icons/hicolor/128x128/apps/zotero.png
 
 	# Use our own .desktop file
 	vinstall ${FILESDIR}/zotero.desktop 644 usr/share/applications
