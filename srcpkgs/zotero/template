@@ -1,14 +1,14 @@
 # Template file for 'zotero'
 pkgname=zotero
-version=7.0.30
+version=8.0
 revision=1
 archs="x86_64"
 short_desc="collect, organize, annotate, cite and share research"
 maintainer=" <felix.f.klose@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://www.zotero.org/"
-distfiles="https://download.zotero.org/client/release/${version}/Zotero-${version}_linux-x86_64.tar.bz2"
-checksum=b95d11d0bf04a19b79f6130a5c5949f8484e340acfa516dbfed215fb064a2e06
+distfiles="https://download.zotero.org/client/release/${version}/Zotero-${version}_linux-x86_64.tar.xz"
+checksum=0fe9e4fb56d2d389766123239dd7137c07e0b2a87ee206497874a5818a1f0819
 
 # TODO: Fix license
 # TODO: Fix icon not showing up in launcher
