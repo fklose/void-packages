@@ -2,17 +2,18 @@
 pkgname=librepcb
 version=2.0.0
 revision=1
-build_style=cmake
-configure_args="-DCMAKE_BUILD_TYPE=Release
--DLIBREPCB_SHARE=/usr/share/librepcb
--DUNBUNDLE_MUPARSER=1
--Wno-dev"
-hostmakedepends="cargo"
-makedepends="qt6-base-devel qt6-tools-devel qt6-svg-devel occt-devel glu-devel openssl-devel zlib-devel muparser-devel"
-depends="muparser"
+build_style=fetch
 short_desc="Powerful, innovative and intuitive EDA tool for everyone"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://librepcb.org"
-distfiles="https://download.librepcb.org/releases/${version}/librepcb-${version}-source.zip"
-checksum=9a56db252991ae2ce69bf9009364e3e4a3d1f91f1295b855a54793a2f2371748
+distfiles="https://download.librepcb.org/releases/2.0.0/librepcb-${version}-linux-x86_64.AppImage"
+checksum=6358c275de8f2f63caee25318eac5b7014c0f9ac2d048afa5e24aff80e0be2d3
+
+post_fetch() {
+	echo $XBPS_BUILDDIR
+}
+
+do_install() {
+	echo $XBPS_BUILDDIR
+}
